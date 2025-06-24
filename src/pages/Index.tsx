@@ -42,7 +42,7 @@ const Index = () => {
       <nav className="border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-xl font-semibold text-gray-900">Your Name</div>
+            <div className="text-xl font-semibold text-gray-900">Felipe Andrade</div>
             <div className="flex items-center space-x-6">
               <a href="#portfolio" className="text-gray-600 hover:text-gray-900">Portfolio</a>
               <a href="#blog" className="text-gray-600 hover:text-gray-900">Blog</a>
