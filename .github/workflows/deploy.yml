@@ -20,8 +20,12 @@ jobs:
       - name: Clean previous build
         run: rm -rf dist
 
+      - name: Clean npm cache and lockfile (fix Rollup bug)
+        run: rm -rf node_modules package-lock.json
+        working-directory: ./
+
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: npm install --legacy-peer-deps
         working-directory: ./
 
       - name: Build site
@@ -33,4 +37,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          publish_branch: gh-pages 
+          publish_branch: gh-pages
