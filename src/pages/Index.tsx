@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ExternalLink, Mail, Calendar } from 'lucide-react';
+import { ExternalLink, Mail, Calendar, Github, Linkedin } from 'lucide-react';
 
 const Index = () => {
   const portfolioItems = [
@@ -61,10 +61,18 @@ const Index = () => {
             <div className="flex items-center space-x-6">
               <a href="#portfolio" className="text-gray-600 hover:text-gray-900">Portfolio</a>
               <a href="#blog" className="text-gray-600 hover:text-gray-900">Blog</a>
-              <Button variant="outline" size="sm">
-                <Mail className="w-4 h-4 mr-2" />
-                Contact
-              </Button>
+              <div className="flex items-center space-x-3">
+                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                  <Github className="w-5 h-5" />
+                </a>
+                <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <Button variant="outline" size="sm">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Contact
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -170,10 +178,18 @@ const Index = () => {
               <h3 className="font-semibold text-gray-900 mb-1">Your Name</h3>
               <p className="text-sm text-gray-600">Developer & Simulation Engineer</p>
             </div>
-            <Button variant="outline">
-              <Mail className="w-4 h-4 mr-2" />
-              Contact
-            </Button>
+            <div className="flex items-center space-x-4">
+              <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                <Github className="w-5 h-5" />
+              </a>
+              <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <Button variant="outline">
+                <Mail className="w-4 h-4 mr-2" />
+                Contact
+              </Button>
+            </div>
           </div>
           <div className="mt-6 pt-6 border-t border-gray-100 text-center text-sm text-gray-500">
             <p>&copy; 2024 Your Name. All rights reserved.</p>
