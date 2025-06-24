@@ -14,7 +14,7 @@ const Index = () => {
       description: "Redesigned checkout flow resulting in 40% increase in conversion rates.",
       tech: ["React", "Node.js", "PostgreSQL", "AWS"],
       image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop",
-      link: "#"
+      link: "#BlogPost"
     },
     {
       title: "Financial Dashboard Analytics", 
