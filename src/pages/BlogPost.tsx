@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Mail, Calendar, Github, Linkedin } from 'lucide-react';
@@ -9,6 +10,10 @@ import { blogPosts } from '@/data/blogPosts';
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = blogPosts.find(p => p.slug === slug);
+
+  const handleContactClick = () => {
+    window.location.href = 'mailto:your.email@example.com';
+  };
 
   if (!post) {
     return (
@@ -25,7 +30,7 @@ const BlogPost = () => {
                   <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
                     <Linkedin className="w-5 h-5" />
                   </a>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={handleContactClick}>
                     <Mail className="w-4 h-4 mr-2" />
                     Contact
                   </Button>
@@ -60,7 +65,7 @@ const BlogPost = () => {
                 <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" onClick={handleContactClick}>
                   <Mail className="w-4 h-4 mr-2" />
                   Contact
                 </Button>
@@ -91,10 +96,8 @@ const BlogPost = () => {
           <div className="mt-4 text-sm text-gray-500">{post.readTime}</div>
         </header>
 
-        <div className="prose prose-lg max-w-none">
-          <p>This is where the full blog post content would go. You can add your content here for each blog post.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <div className="prose prose-lg prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900 prose-code:text-gray-800 prose-code:bg-gray-100 prose-pre:bg-gray-50 max-w-none">
+          <ReactMarkdown>{post.content}</ReactMarkdown>
         </div>
       </article>
     </div>
