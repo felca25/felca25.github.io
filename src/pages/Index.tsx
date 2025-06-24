@@ -62,7 +62,7 @@ const Index = () => {
               <a href="#portfolio" className="text-gray-600 hover:text-gray-900">Portfolio</a>
               <a href="#blog" className="text-gray-600 hover:text-gray-900">Blog</a>
               <div className="flex items-center space-x-3">
-                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                <a href="https://github.com/felca25" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
                   <Github className="w-5 h-5" />
                 </a>
                 <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
@@ -175,11 +175,11 @@ const Index = () => {
         <div className="max-w-4xl mx-auto">
           <div className="flex justify-between items-center">
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">Your Name</h3>
+              <h3 className="font-semibold text-gray-900 mb-1">Felipe Andrade</h3>
               <p className="text-sm text-gray-600">Developer & Simulation Engineer</p>
             </div>
             <div className="flex items-center space-x-4">
-              <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+              <a href="https://github.com/felca25" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
                 <Github className="w-5 h-5" />
               </a>
               <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
@@ -192,7 +192,7 @@ const Index = () => {
             </div>
           </div>
           <div className="mt-6 pt-6 border-t border-gray-100 text-center text-sm text-gray-500">
-            <p>&copy; 2024 Your Name. All rights reserved.</p>
+            <p>&copy; 2025 Felipe Andrade. All rights reserved.</p>
           </div>
         </div>
       </footer>
