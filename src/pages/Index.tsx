@@ -33,8 +33,11 @@ const Index = () => {
   ];
 
   const handleContactClick = () => {
-    window.location.href = 'mailto:your.email@example.com';
+    window.location.href = 'mailto:felipe.andrade@icloud.com';
   };
+  const githubLink = "https://gihub.com/felca25";
+  const linkedinLink = "https://linkedin.com/in/yourusername";
+  const name = "Felipe Andrade";
 
   return (
     <div className="min-h-screen bg-white">
@@ -42,7 +45,7 @@ const Index = () => {
       <nav className="border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-xl font-semibold text-gray-900">Felipe Andrade</div>
+            <div className="text-xl font-semibold text-gray-900">name</div>
             <div className="flex items-center space-x-6">
               <a href="#portfolio" className="text-gray-600 hover:text-gray-900">Portfolio</a>
               <a href="#blog" className="text-gray-600 hover:text-gray-900">Blog</a>
