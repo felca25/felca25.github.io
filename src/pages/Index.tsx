@@ -1,9 +1,11 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Mail, Calendar, Github, Linkedin } from 'lucide-react';
+import { blogPosts } from '@/data/blogPosts';
 
 const Index = () => {
   const portfolioItems = [
@@ -11,45 +13,28 @@ const Index = () => {
       title: "E-commerce Platform Optimization",
       description: "Redesigned checkout flow resulting in 40% increase in conversion rates.",
       tech: ["React", "Node.js", "PostgreSQL", "AWS"],
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop"
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop",
+      link: "#"
     },
     {
       title: "Financial Dashboard Analytics", 
       description: "Real-time analytics dashboard processing 1M+ transactions daily.",
       tech: ["Python", "React", "MongoDB", "Redis"],
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop"
+      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop",
+      link: "#"
     },
     {
       title: "Healthcare Mobile App",
       description: "Go-to-market strategy and development for healthcare app with 100K+ downloads.",
       tech: ["React Native", "Firebase", "UI/UX"],
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=400&fit=crop"
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=400&fit=crop",
+      link: "#"
     }
   ];
 
-  const blogPosts = [
-    {
-      title: "The Future of Consulting in the AI Era",
-      excerpt: "How artificial intelligence is reshaping the consulting landscape and what it means for independent consultants.",
-      date: "March 15, 2024",
-      readTime: "5 min read",
-      category: "Strategy"
-    },
-    {
-      title: "Building Scalable Systems: Lessons from the Trenches",
-      excerpt: "Key architectural decisions that can make or break your startup's technical foundation as you scale.",
-      date: "March 8, 2024",
-      readTime: "8 min read", 
-      category: "Technology"
-    },
-    {
-      title: "From Idea to Exit: A Framework for Startup Success",
-      excerpt: "A systematic approach to building and scaling startups based on patterns observed across 50+ companies.",
-      date: "February 28, 2024",
-      readTime: "12 min read",
-      category: "Business"
-    }
-  ];
+  const handleContactClick = () => {
+    window.location.href = 'mailto:your.email@example.com';
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -68,7 +53,7 @@ const Index = () => {
                 <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" onClick={handleContactClick}>
                   <Mail className="w-4 h-4 mr-2" />
                   Contact
                 </Button>
@@ -120,10 +105,10 @@ const Index = () => {
                       </Badge>
                     ))}
                   </div>
-                  <Button variant="ghost" className="p-0 h-auto text-sm">
+                  <a href={item.link} className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900">
                     View Details
                     <ExternalLink className="w-3 h-3 ml-1" />
-                  </Button>
+                  </a>
                 </CardContent>
               </Card>
             ))}
@@ -137,8 +122,8 @@ const Index = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-8">Blog</h2>
           
           <div className="space-y-6">
-            {blogPosts.map((post, index) => (
-              <Card key={index} className="border-0 shadow-sm hover:shadow-md transition-shadow">
+            {blogPosts.map((post) => (
+              <Card key={post.id} className="border-0 shadow-sm hover:shadow-md transition-shadow">
                 <CardHeader>
                   <div className="flex items-center justify-between mb-2">
                     <Badge variant="outline" className="text-xs">
@@ -149,9 +134,11 @@ const Index = () => {
                       {post.date}
                     </div>
                   </div>
-                  <CardTitle className="text-xl hover:text-blue-600 cursor-pointer">
-                    {post.title}
-                  </CardTitle>
+                  <Link to={`/blog/${post.slug}`}>
+                    <CardTitle className="text-xl hover:text-blue-600 cursor-pointer">
+                      {post.title}
+                    </CardTitle>
+                  </Link>
                   <CardDescription>
                     {post.excerpt}
                   </CardDescription>
@@ -159,9 +146,9 @@ const Index = () => {
                 <CardContent>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-500">{post.readTime}</span>
-                    <Button variant="ghost" className="p-0 h-auto text-sm">
+                    <Link to={`/blog/${post.slug}`} className="text-sm text-gray-600 hover:text-gray-900">
                       Read More
-                    </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
@@ -185,7 +172,7 @@ const Index = () => {
               <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <Button variant="outline">
+              <Button variant="outline" onClick={handleContactClick}>
                 <Mail className="w-4 h-4 mr-2" />
                 Contact
               </Button>
