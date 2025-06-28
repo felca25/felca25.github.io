@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Mail, Calendar, Github, Linkedin } from 'lucide-react';
 import { blogPosts } from '@/data/blogPosts';
+import { siteConfig } from '@/data/siteConfig';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 
 const Index = () => {
   const portfolioItems = [
@@ -33,41 +35,18 @@ const Index = () => {
   ];
 
   const handleContactClick = () => {
-    window.location.href = 'mailto:felipe.andrade@icloud.com';
+    window.location.href = `mailto:${siteConfig.email}`;
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div className="text-xl font-semibold text-gray-900">Felipe Andrade</div>
-            <div className="flex items-center space-x-6">
-              <a href="#portfolio" className="text-gray-600 hover:text-gray-900">Portfolio</a>
-              <a href="#blog" className="text-gray-600 hover:text-gray-900">Blog</a>
-              <div className="flex items-center space-x-3">
-                <a href="https://github.com/felca25" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
-                  <Github className="w-5 h-5" />
-                </a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
-                  <Linkedin className="w-5 h-5" />
-                </a>
-                <Button variant="outline" size="sm" onClick={handleContactClick}>
-                  <Mail className="w-4 h-4 mr-2" />
-                  Contact
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <div className={`min-h-screen bg-white ${siteConfig.fontClass}`}>
+      <Header />
 
       {/* Hero Section */}
-      <section className="py-16 px-6">
+      <section className="pt-[72px] sm:pt-[104px] pb-12 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Developer & Simulation Engineer
+          <h1 className="text-4xl font-bold text-[#4A4A4A] mb-4">
+            {siteConfig.description}
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl">
             Building the future where software and engineering meet.
@@ -76,7 +55,7 @@ const Index = () => {
       </section>
 
       {/* Portfolio Section */}
-      <section id="portfolio" className="py-16 px-6 bg-gray-50">
+      <section id="portfolio" className="py-12 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-8">Portfolio</h2>
           
@@ -157,31 +136,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 py-8 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex justify-between items-center">
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-1">Felipe Andrade</h3>
-              <p className="text-sm text-gray-600">Developer & Simulation Engineer</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <a href="https://github.com/felca25" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
-                <Github className="w-5 h-5" />
-              </a>
-              <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <Button variant="outline" onClick={handleContactClick}>
-                <Mail className="w-4 h-4 mr-2" />
-                Contact
-              </Button>
-            </div>
-          </div>
-          <div className="mt-6 pt-6 border-t border-gray-100 text-center text-sm text-gray-500">
-            <p>&copy; 2025 Felipe Andrade. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

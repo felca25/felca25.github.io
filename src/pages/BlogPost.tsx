@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
@@ -6,13 +5,15 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Mail, Calendar, Github, Linkedin } from 'lucide-react';
 import { blogPosts } from '@/data/blogPosts';
+import { siteConfig } from '@/data/siteConfig';
+import Footer from '@/components/Footer';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = blogPosts.find(p => p.slug === slug);
 
   const handleContactClick = () => {
-    window.location.href = 'mailto:your.email@example.com';
+    window.location.href = `mailto:${siteConfig.email}`;
   };
 
   if (!post) {
@@ -21,13 +22,13 @@ const BlogPost = () => {
         <nav className="border-b border-gray-200">
           <div className="max-w-4xl mx-auto px-6 py-4">
             <div className="flex justify-between items-center">
-              <Link to="/" className="text-xl font-semibold text-gray-900">Your Name</Link>
+              <Link to="/" className="text-xl font-semibold text-gray-900">{siteConfig.name}</Link>
               <div className="flex items-center space-x-6">
                 <div className="flex items-center space-x-3">
-                  <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                  <a href={siteConfig.github} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
                     <Github className="w-5 h-5" />
                   </a>
-                  <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                  <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
                     <Linkedin className="w-5 h-5" />
                   </a>
                   <Button variant="outline" size="sm" onClick={handleContactClick}>
@@ -47,6 +48,7 @@ const BlogPost = () => {
             Back to home
           </Link>
         </div>
+        <Footer />
       </div>
     );
   }
@@ -56,13 +58,13 @@ const BlogPost = () => {
       <nav className="border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <Link to="/" className="text-xl font-semibold text-gray-900">Your Name</Link>
+            <Link to="/" className="text-xl font-semibold text-gray-900">{siteConfig.name}</Link>
             <div className="flex items-center space-x-6">
               <div className="flex items-center space-x-3">
-                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                <a href={siteConfig.github} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
                   <Github className="w-5 h-5" />
                 </a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
                   <Linkedin className="w-5 h-5" />
                 </a>
                 <Button variant="outline" size="sm" onClick={handleContactClick}>
@@ -100,6 +102,7 @@ const BlogPost = () => {
           <ReactMarkdown>{post.content}</ReactMarkdown>
         </div>
       </article>
+      <Footer />
     </div>
   );
 };

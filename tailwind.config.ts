@@ -63,6 +63,30 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				}
 			},
+			fontFamily: {
+				avenir: [
+					'Avenir Next',
+					'Avenir',
+					'Segoe UI',
+					'Helvetica Neue',
+					'Arial',
+					'sans-serif'
+				],
+				nunito: [
+					'Nunito',
+					'Segoe UI',
+					'Helvetica Neue',
+					'Arial',
+					'sans-serif'
+				],
+				inter: [
+					'Inter',
+					'Segoe UI',
+					'Helvetica Neue',
+					'Arial',
+					'sans-serif'
+				]
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
