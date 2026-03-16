@@ -1,25 +1,18 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import mdx from "@mdx-js/esbuild";
+import react from "@vitejs/plugin-react";
+import remarkGfm from "remark-gfm";
 import path from "path";
-import { componentTagger } from "lovable-tagger";
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  base: '/',
-  server: {
-    host: "::",
-    port: 8080,
-    fs: {strict: false},
-    historyApiFallback: true
-  },
+export default defineConfig({
   plugins: [
+    mdx({ remarkPlugins: [remarkGfm] }),
     react(),
-    mode === 'development' &&
-    componentTagger(),
-  ].filter(Boolean),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+    extensions: [".js", ".ts", ".jsx", ".tsx", ".json", ".mdx", ".md"],
   },
-}));
+});

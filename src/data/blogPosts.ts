@@ -11,8 +11,8 @@ export interface BlogPost {
   content: string;
 }
 
-// Use './posts/*.md' relative to src/data/
-const postFiles = import.meta.glob('./posts/*.md', { query: '?raw',  eager: true });
+// Use '../../data/posts/*.md' relative to src/data/
+const postFiles = import.meta.glob('../../data/posts/*.md', { query: '?raw',  eager: true });
 
 console.log('Loaded posts:', postFiles);
 

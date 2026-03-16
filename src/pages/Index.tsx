@@ -6,34 +6,11 @@ import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Mail, Calendar, Github, Linkedin } from 'lucide-react';
 import { blogPosts } from '@/data/blogPosts';
 import { siteConfig } from '@/data/siteConfig';
+import { portfolioItems } from '@/data/portfolioItems';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
 const Index = () => {
-  const portfolioItems = [
-    {
-      title: "The deployment process Worked",
-      description: "Redesigned checkout flow resulting in 40% increase in conversion rates.",
-      tech: ["React", "Node.js", "PostgreSQL", "AWS"],
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop",
-      link: "#"
-    },
-    {
-      title: "Financial Dashboard Analytics", 
-      description: "Real-time analytics dashboard processing 1M+ transactions daily.",
-      tech: ["Python", "React", "MongoDB", "Redis"],
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop",
-      link: "#"
-    },
-    {
-      title: "Healthcare Mobile App",
-      description: "Go-to-market strategy and development for healthcare app with 100K+ downloads.",
-      tech: ["React Native", "Firebase", "UI/UX"],
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=400&fit=crop",
-      link: "#"
-    }
-  ];
-
   const handleContactClick = () => {
     window.location.href = `mailto:${siteConfig.email}`;
   };
@@ -58,13 +35,12 @@ const Index = () => {
       <section id="portfolio" className="py-12 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-8">Portfolio</h2>
-          
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {portfolioItems.map((item, index) => (
-              <Card key={index} className="border-0 shadow-sm hover:shadow-md transition-shadow">
+              <Card key={item.slug} className="border-0 shadow-sm hover:shadow-md transition-shadow">
                 <div className="aspect-video overflow-hidden rounded-t-lg">
                   <img 
-                    src={item.image}
+                    src={item.images?.[0]}
                     alt={item.title}
                     className="w-full h-full object-cover"
                   />
@@ -77,16 +53,16 @@ const Index = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-1 mb-3">
-                    {item.tech.map((tech, techIndex) => (
+                    {item.tech?.map((tech, techIndex) => (
                       <Badge key={techIndex} variant="secondary" className="text-xs">
                         {tech}
                       </Badge>
                     ))}
                   </div>
-                  <a href={item.link} className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900">
+                  <Link to={`/project/${item.slug}`} className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900">
                     View Details
                     <ExternalLink className="w-3 h-3 ml-1" />
-                  </a>
+                  </Link>
                 </CardContent>
               </Card>
             ))}

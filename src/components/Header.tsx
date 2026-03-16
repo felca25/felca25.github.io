@@ -30,12 +30,12 @@ const Header = () => {
             </div>
             <Button
               style={{
-                backgroundColor: siteConfig.ctaColor,
-                color: '#fff',
+                backgroundColor: siteConfig.primaryColor,
+                color: '#f0f0f0',
                 border: 'none',
                 '--tw-ring-color': siteConfig.ctaColor
               } as React.CSSProperties}
-              className="ml-2 hover:brightness-110 focus:ring-2 focus:ring-offset-2 font-semibold px-4 py-2 sm:px-5 sm:py-2.5 rounded transition-colors"
+              className="ml-2 hover:brightness-110 focus:ring-2 focus:ring-offset-2 font-semibold px-3 py-1.5 sm:px-5 sm:py-2.5 rounded transition-colors"
               size="sm"
               onClick={handleContactClick}
             >

@@ -1,7 +1,7 @@
 ---
 id: "1"
-title: "The Future of Consulting in the AI Era"
-excerpt: "How artificial intelligence is reshaping the consulting landscape and what it means for independent consultants."
+title: "The Future of work in a world with AI"
+excerpt: "How will AI a"
 date: "March 15, 2024"
 readTime: "5 min read"
 category: "Strategy"
