@@ -1,4 +1,4 @@
-import fm from 'front-matter';
+import { parseFrontmatter } from '@/utils/markdown';
 
 export interface PortfolioItem {
   slug: string;
@@ -13,22 +13,33 @@ export interface PortfolioItem {
   index: number;
 }
 
-// Use '../../data/portfolio/*.md' relative to src/data/
-const projectFiles = import.meta.glob('../../data/portfolio/*.md', { query: '?raw', eager: true });
+// Get URLs to markdown files
+const projectModules = import.meta.glob('../../data/portfolio/*.md', { as: 'url', eager: true });
 
-export const portfolioItems: PortfolioItem[] = Object.values(projectFiles)
-  .map((mod: any) => {
-    const raw = typeof mod === 'string' ? mod : mod.default;
-    if (typeof raw !== 'string') {
-      throw new Error('Markdown file could not be loaded as a string.');
+export let portfolioItems: PortfolioItem[] = [];
+
+// Use Promise.all to load files - React component will wait for this
+export const portfolioItemsPromise = Promise.all(
+  Object.values(projectModules).map(async (url) => {
+    try {
+      const response = await fetch(url as string);
+      const raw = await response.text();
+      if (typeof raw !== 'string') return null;
+      
+      const { attributes, body } = parseFrontmatter(raw);
+      const attrs: any = typeof attributes === 'object' && attributes !== null ? { ...attributes } : {};
+      if (typeof attrs.images === 'string') attrs.images = [attrs.images];
+      if (typeof attrs.tech === 'string') attrs.tech = [attrs.tech];
+      const normalizedBody = body.replace(/\r\n?/g, '\n').trim();
+      return { ...attrs, content: normalizedBody } as PortfolioItem;
+    } catch (error) {
+      console.error('Error parsing portfolio item:', error);
+      return null;
     }
-    const { attributes, body } = fm(raw);
-    const attrs: any = typeof attributes === 'object' && attributes !== null ? { ...attributes } : {};
-    if (typeof attrs.images === 'string') attrs.images = [attrs.images];
-    if (typeof attrs.tech === 'string') attrs.tech = [attrs.tech];
-    // Normalize line endings to LF and trim whitespace only
-    const normalizedBody = body.replace(/\r\n?/g, '\n').trim();
-    return { ...attrs, content: normalizedBody } as PortfolioItem;
   })
-  .filter(item => item.index !== 0)
-  .sort((a, b) => (a.index ?? 999) - (b.index ?? 999));
+).then((items) => {
+  portfolioItems = items
+    .filter((i): i is PortfolioItem => i !== null)
+    .sort((a, b) => (a.index ?? 999) - (b.index ?? 999));
+  return portfolioItems;
+});

@@ -8,30 +8,14 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { portfolioItems } from '@/data/portfolioItems';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
-import { MDXProvider } from '@mdx-js/react';
-
-// Try to import all MDX files in portfolio
-const mdxModules = import.meta.glob('../../data/portfolio/*.mdx', { eager: true });
 
 const ProjectPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const project = portfolioItems.find(p => p.slug === slug);
-
-  // Find the MDX module for this project, if it exists
-  let MDXContent: React.ComponentType | null = null;
-  if (project) {
-    for (const key in mdxModules) {
-      // Extract slug from filename
-      const match = key.match(/\/([^/]+)\.mdx$/);
-      if (match && match[1] === project.slug) {
-        MDXContent = (mdxModules[key] as any).default;
-        break;
-      }
-    }
-  }
 
   const handleContactClick = () => {
     window.location.href = `mailto:${siteConfig.email}`;
@@ -106,11 +90,9 @@ const ProjectPage = () => {
           </a>
         )}
         <div className="prose prose-lg prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900 prose-code:text-gray-800 prose-code:bg-gray-100 prose-pre:bg-gray-50 max-w-none mt-8">
-          {MDXContent ? (
-            <MDXContent />
-          ) : project.content ? (
+          {project.content ? (
             <ReactMarkdown
-              remarkPlugins={[remarkMath]}
+              remarkPlugins={[remarkGfm, remarkMath]}
               rehypePlugins={[rehypeKatex]}
             >{project.content}</ReactMarkdown>
           ) : null}

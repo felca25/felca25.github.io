@@ -4,7 +4,7 @@ export const siteConfig = {
   email: "felipe.andrade@icloud.com",
   github: "https://github.com/felca25",
   linkedin: "https://www.linkedin.com/in/felipeandrade25/",
-  description: "Developer & Simulation Engineer",
+  description: "Scientific Software Engineer",
   copyright: `© ${new Date().getFullYear()} Felipe Andrade. All rights reserved.`,
   fontClass: "font-inter",
   

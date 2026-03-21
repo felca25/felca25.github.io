@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Mail, Calendar, Github, Linkedin } from 'lucide-react';
@@ -8,34 +9,20 @@ import { blogPosts } from '@/data/blogPosts';
 import { siteConfig } from '@/data/siteConfig';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import matter from 'gray-matter';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
-  const [markdownContent, setMarkdownContent] = useState<string | null>(null);
   const post = blogPosts.find(p => p.slug === slug);
-
-  useEffect(() => {
-    if (!post) {
-      // Try to load markdown file dynamically
-      import(`../../data/posts/${slug}.md`)
-        .then((mod) => fetch(mod.default).then(res => res.text()))
-        .then((raw) => {
-          const { content } = matter(raw);
-          setMarkdownContent(content);
-        })
-        .catch(() => setMarkdownContent(null));
-    }
-  }, [slug, post]);
+  const contentToRender = post?.content ?? '';
 
   const handleContactClick = () => {
     window.location.href = `mailto:${siteConfig.email}`;
   };
 
-  if (!post && !markdownContent) {
+  if (!post) {
     return (
       <div className="min-h-screen bg-white">
         <nav className="border-b border-gray-200">
@@ -83,20 +70,20 @@ const BlogPost = () => {
         <header className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <Badge variant="outline" className="text-sm">
-              {post.category}
+              {post?.category ?? 'Blog'}
             </Badge>
             <div className="flex items-center text-sm text-gray-500">
               <Calendar className="w-4 h-4 mr-2" />
-              {post.date}
+              {post?.date ?? ''}
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{post.title}</h1>
-          <p className="text-xl text-gray-600 leading-relaxed">{post.excerpt}</p>
-          <div className="mt-4 text-sm text-gray-500">{post.readTime}</div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">{post?.title ?? slug}</h1>
+          <p className="text-xl text-gray-600 leading-relaxed">{post?.excerpt ?? ''}</p>
+          <div className="mt-4 text-sm text-gray-500">{post?.readTime ?? ''}</div>
         </header>
         <div className="prose prose-lg prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900 prose-code:text-gray-800 prose-code:bg-gray-100 prose-pre:bg-gray-50 max-w-none">
           <ReactMarkdown
-            remarkPlugins={[remarkMath]}
+            remarkPlugins={[remarkGfm, remarkMath]}
             rehypePlugins={[rehypeKatex]}
             components={{
               h1: ({node, ...props}) => <h1 className="text-3xl font-bold mt-8 mb-4 text-gray-900" {...props} />, 
@@ -106,7 +93,7 @@ const BlogPost = () => {
               h5: ({node, ...props}) => <h5 className="text-base font-semibold mt-3 mb-1 text-gray-900" {...props} />, 
               h6: ({node, ...props}) => <h6 className="text-sm font-semibold mt-2 mb-1 text-gray-900" {...props} />, 
             }}
-          >{post.content}</ReactMarkdown>
+          >{contentToRender}</ReactMarkdown>
         </div>
       </article>
       <Footer />

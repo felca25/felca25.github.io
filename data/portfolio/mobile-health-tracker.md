@@ -1,5 +1,5 @@
 ---
-index: 2
+index: 3
 slug: "mobile-health-tracker"
 title: "Mobile Health Tracker App"
 description: "A cross-platform mobile app for tracking fitness, nutrition, and health goals."

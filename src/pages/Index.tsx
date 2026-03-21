@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Mail, Calendar, Github, Linkedin } from 'lucide-react';
-import { blogPosts } from '@/data/blogPosts';
+import { blogPostsPromise, BlogPost } from '@/data/blogPosts';
 import { siteConfig } from '@/data/siteConfig';
-import { portfolioItems } from '@/data/portfolioItems';
+import { portfolioItemsPromise, PortfolioItem } from '@/data/portfolioItems';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
 const Index = () => {
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
+
+  useEffect(() => {
+    // Wait for both data sources to load
+    Promise.all([blogPostsPromise, portfolioItemsPromise]).then(([blogs, portfolio]) => {
+      setBlogPosts(blogs);
+      setPortfolioItems(portfolio);
+    });
+  }, []);
+
   const handleContactClick = () => {
     window.location.href = `mailto:${siteConfig.email}`;
   };
@@ -36,7 +47,7 @@ const Index = () => {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-8">Portfolio</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolioItems.map((item, index) => (
+            {portfolioItems.map((item) => (
               <Card key={item.slug} className="border-0 shadow-sm hover:shadow-md transition-shadow">
                 <div className="aspect-video overflow-hidden rounded-t-lg">
                   <img 

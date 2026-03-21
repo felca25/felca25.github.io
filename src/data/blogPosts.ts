@@ -1,4 +1,4 @@
-import fm from 'front-matter';
+import { parseFrontmatter } from '@/utils/markdown';
 
 export interface BlogPost {
   id: string;
@@ -11,17 +11,27 @@ export interface BlogPost {
   content: string;
 }
 
-// Use '../../data/posts/*.md' relative to src/data/
-const postFiles = import.meta.glob('../../data/posts/*.md', { query: '?raw',  eager: true });
+// Get URLs to markdown files
+const postModules = import.meta.glob('../../data/posts/*.md', { as: 'url', eager: true });
 
-console.log('Loaded posts:', postFiles);
+export let blogPosts: BlogPost[] = [];
 
-export const blogPosts: BlogPost[] = Object.values(postFiles).map((mod: any) => {
-  // Support both { default: string } and string
-  const raw = typeof mod === 'string' ? mod : mod.default;
-  if (typeof raw !== 'string') {
-    throw new Error('Markdown file could not be loaded as a string.');
-  }
-  const { attributes, body } = fm(raw);
-  return { ...(attributes as Record<string, any>), content: body } as BlogPost;
+// Use Promise.all to load files - React component will wait for this
+export const blogPostsPromise = Promise.all(
+  Object.values(postModules).map(async (url) => {
+    try {
+      const response = await fetch(url as string);
+      const raw = await response.text();
+      if (typeof raw !== 'string') return null;
+      
+      const { attributes, body } = parseFrontmatter(raw);
+      return { ...(attributes as Record<string, any>), content: body } as BlogPost;
+    } catch (error) {
+      console.error('Error parsing blog post:', error);
+      return null;
+    }
+  })
+).then((posts) => {
+  blogPosts = posts.filter((p): p is BlogPost => p !== null);
+  return blogPosts;
 });
